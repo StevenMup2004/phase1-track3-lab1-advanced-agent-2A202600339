@@ -12,14 +12,21 @@ class QAExample(BaseModel):
     question: str
     gold_answer: str
     context: list[ContextChunk]
+    type: Optional[str] = None  # bridge / comparison — present in diverse dataset
 
 class JudgeResult(BaseModel):
-    # TODO: Học viên định nghĩa các trường cần thiết cho kết quả đánh giá (score, reason, ...)
-    pass
+    """Structured evaluation result from the Evaluator."""
+    score: int = Field(..., description="1 if correct, 0 if incorrect")
+    reason: str = Field(..., description="Explanation of why the answer is correct or incorrect")
+    missing_evidence: list[str] = Field(default_factory=list, description="Evidence the answer missed")
+    spurious_claims: list[str] = Field(default_factory=list, description="Incorrect claims in the answer")
 
 class ReflectionEntry(BaseModel):
-    # TODO: Học viên định nghĩa các trường cần thiết cho một mục reflection (attempt_id, lesson, strategy, ...)
-    pass
+    """A single reflection produced by the Reflector after a failed attempt."""
+    attempt_id: int = Field(..., description="Which attempt this reflection corresponds to")
+    failure_reason: str = Field(..., description="Why the previous attempt failed")
+    lesson: str = Field(..., description="Key lesson learned from this failure")
+    next_strategy: str = Field(..., description="Concrete strategy for the next attempt")
 
 class AttemptTrace(BaseModel):
     attempt_id: int
