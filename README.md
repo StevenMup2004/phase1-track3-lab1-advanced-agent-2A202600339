@@ -1,5 +1,5 @@
 # Lab 16 — Reflexion Agent
-
+**Name**: Vu Hai Dang - 2A202600339
 Repo này xây dựng và đánh giá **Reflexion Agent** trên bộ dữ liệu HotpotQA, sử dụng OpenAI API thật (`gpt-4o-mini`).
 
 ## 1. Tổng quan
